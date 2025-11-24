@@ -32,4 +32,22 @@ class Order extends Model
     {
         return $this->hasMany(Payment::class);
     }
+
+    public function scopeBetweenDates($query, ?string $startDate, ?string $endDate)
+    {
+        if ($startDate || $endDate) {
+            return $query->whereBetween('created_at', [$startDate, $endDate]);
+        }
+        return $query;
+    }
+
+    public function totalPaidAmount(): float
+    {
+        return (float) $this->payments()->sum('amount');
+    }
+
+    public function dueAmount(): float
+    {
+        return (float) ($this->grand_total - $this->totalPaidAmount());
+    }
 }
