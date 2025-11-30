@@ -18,7 +18,10 @@ class ReportController extends Controller
         if (! $startDate && ! $endDate) {
             // Logic to generate report summary between the given dates
             // This is a placeholder for actual report generation logic
-            $startDate = now()->subMonth()->toDateString();
+            // $startDate = now()->subMonth()->toDateString();
+            // $endDate = now()->toDateString();
+
+            $startDate = now()->subDays(30)->toDateString();
             $endDate = now()->toDateString();
         }
 
